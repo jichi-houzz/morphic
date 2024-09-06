@@ -41,7 +41,7 @@ export const searchTool = ({ uiStream, fullResponse }: ToolProps) =>
       const searchAPI =
         (process.env.SEARCH_API as 'tavily' | 'exa' | 'searxng') || 'tavily'
 
-     
+
       const effectiveSearchDepth =
         searchAPI === 'searxng' &&
         process.env.SEARXNG_DEFAULT_DEPTH === 'advanced'
@@ -120,6 +120,8 @@ async function tavilySearch(
   if (!apiKey) {
     throw new Error('TAVILY_API_KEY is not set in the environment variables')
   }
+  includeDomains = ['houzz.com']
+
   const includeImageDescriptions = true
   const response = await fetch('https://api.tavily.com/search', {
     method: 'POST',
